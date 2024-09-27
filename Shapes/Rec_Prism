@@ -1,0 +1,89 @@
+/**
+ * This class creates Rec_Prism objects and can output their stats.
+ */
+public class Rec_Prism 
+{
+	
+	//data attributes
+	private double length;
+	private double width;
+	private double height;
+		
+	/**
+	 * This is a Rec_Prism (rectangular prism) object constructor that assigns length, width, and height to the inputed values respectively.
+	 * @param l is the length of the rectangular prism.
+	 * @param w is the width of the rectangular prism.
+	 * @param h is the height of the rectangular prism.
+	 */
+	public Rec_Prism(double l, double w, double h) 
+	{
+		
+		length = l;
+		width = w;
+		height = h;	
+		
+	}
+		
+	//functionalities
+
+	/**
+	 * This method returns the length of the rectangular prism.
+	 */
+	public double getLength() 
+	{
+		
+	return length;
+	
+	}
+	
+	/**
+	 * This method returns the width of the rectangular prism.
+	 */
+	public double getWidth() 
+	{
+		
+	return width;
+	
+	}
+	
+	/**
+	 * This method returns the height of the rectangular prism.
+	 */
+	public double getHeight() 
+	{
+		
+		return height;
+		
+	}
+	
+	/**
+	 * This method returns the surface area of the rectangular prism.
+	 */
+	public double getSurface() 
+	{
+		
+		return 2 * ((length*width) + (height*length) + (height*width));
+		
+	}
+	
+	/**
+	 * This method returns the volume of the rectangular prism.
+	 */
+	public double getVolume() 
+	{
+		
+		return length * width * height;
+		
+	}
+	
+	/**
+	 * This method returns the shape's name.
+	 */
+	public static String getShape() 
+	{
+		
+		return "Rectangular Prism";
+		
+	}
+	
+}
