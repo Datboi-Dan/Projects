@@ -11,7 +11,7 @@ public class WordleGame {
 	//Class Attributes
 	
 	//Sets the solution word to a random word from the Words class.
-	static String soln = Words.getRandomWord();
+	static String soln;
 	
 	//Instantiates a scanner to read user input from System.in.
 	static Scanner gameReader = new Scanner(System.in);
@@ -37,6 +37,9 @@ public class WordleGame {
 	 */
 	private static void playGame() 
 	{
+		
+		//Picks a random word from the word list.
+		soln = Words.getRandomWord();
 		
 		//Asks the user how many chances they would like to have.
 		System.out.println("How many extra chances would you like to have?");
@@ -77,13 +80,39 @@ public class WordleGame {
 		{
 			
 			System.out.println(soln);
-			System.out.print("Congrats! You successfully guessed that the solution was " + soln + ".");
+			System.out.println("Congrats! You successfully guessed that the solution was " + soln + ".");
 		
 		}
 		else
 		{
 			
-			System.out.print("You lost! The solution was " + soln + ".");
+			System.out.println("You lost! The solution was " + soln + ".");
+			
+		}
+		
+		//Asks if the user wants to player again.
+		System.out.println("\nWould you like to play again?");
+		
+		//Repeatedly prompts the user to input something new if their input is not yes or no.
+		while (!(playerGuess.equals("yes") || playerGuess.equals("no")))
+		{
+			
+			System.out.println("Please input either yes or no.");
+			playerGuess = gameReader.nextLine();
+			
+		}
+		
+		//Runs the game again if the player has inputted yes. Otherwise, it says goodbye and stops running.
+		if (playerGuess.equals("yes"))
+		{
+			
+			playGame();
+			
+		}
+		else
+		{
+			
+			System.out.print("Goodbye!");
 			
 		}
 		
