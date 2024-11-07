@@ -44,7 +44,6 @@ public class Words
 		wordList.add("flask");
 		wordList.add("fanny");
 		wordList.add("strip");
-		wordList.add("penis");
 		wordList.add("tardy");
 		wordList.add("amber");
 		wordList.add("shake");
