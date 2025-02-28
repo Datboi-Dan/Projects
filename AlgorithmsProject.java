@@ -287,8 +287,8 @@ public class AlgorithmsProject
 			{
 				
 				//Turns both the current element and the element after it to 0 if they were both 5 beforehand.
-				array[i] = array[i];
-				array[i + 1] = i;
+				array[i] = 0;
+				array[i + 1] = 0;
 				
 			}
 			
