@@ -1,5 +1,10 @@
 import java.util.Scanner;
 
+/**
+ * I created this remake of TicTacTo after making Connect4. My first TicTacTo is in my Personal repository, and did not use a 2d array. It used a Row. Why did I do that.
+ * MILCS.
+ * @author Daniel B)
+ */
 public class TicTacTo
 {
 
