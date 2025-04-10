@@ -38,19 +38,12 @@ public class ConnectFour
 	/**
 	 * The main method. Most of the game is handled in the playGame() method, but the main method does stuff like introduce the game and announcing the results.
 	 * @param args
-	 * @throws DumbassException
 	 */
-	public static void main(String args[]) throws DumbassException
+	public static void main(String args[])
 	{
 		
-		//Introduces the game.
-		System.out.println("When entering a column, please just use the number and don't type it out. You won't like what happens if ignore this warning. Now then.");
-		
-		//Prints the board, which is empty at the start.
-		printBoard();
-		
 		//Runs the game and records the winner.
-		String winner = playGame();
+		String winner = playGame(intro());
 		
 		//If playGame() returns tie, that means that all the squares are filled without an occurrence of four in a row, in which case, "Tie!" will be printed out.
 		if (winner == "tie")
@@ -59,25 +52,71 @@ public class ConnectFour
 		else
 			System.out.println("\n" + winner + " wins!");
 		
+
+		
+	}
+	
+	public static Bot intro()
+	{
+		
+		//Pick mode
+		System.out.println("Choose what you would like to play against: Bot | Human");	
+		String input = myReader.nextLine();
+		if (input.equalsIgnoreCase("bot"))
+		{
+			
+			System.out.println("Please choose a difficulty: Easy | Medium | Hard");
+			input = myReader.nextLine();
+			while (!input.equalsIgnoreCase("easy") && !input.equalsIgnoreCase("medium") && !input.equalsIgnoreCase("hard"))
+			{
+				
+				System.out.println("Please choose a difficulty: Easy | Medium | Hard");
+				input = myReader.nextLine();
+				
+			}
+				
+			//Introduces the game.
+			System.out.println("When entering a column, please just use the number and don't type it out. You won't like what happens if ignore this warning. Now then.");
+			
+			//Prints the board, which is empty at the start.
+			printBoard();
+			
+			//Skips a line for console readability.
+			System.out.println();
+			return new Bot(input.toLowerCase());
+			
+			
+		}
+		else if (input.equalsIgnoreCase("human"))
+		{
+			
+			//Introduces the game.
+			System.out.println("When entering a column, please just use the number and don't type it out. You won't like what happens if ignore this warning. Now then.");
+			
+			//Prints the board, which is empty at the start.
+			printBoard();
+			
+			//Skips a line for console readability.
+			System.out.println();
+			return null;
+			
+		}
+		else
+			return intro();
+		
 	}
 	
 	/**
 	 * Where most of the methods are called and the game is played. Recursively calls itself until a winner is found.
 	 * @return The winner of the game as a string, or if there is no winner, returns "tie".
 	 */
-	public static String playGame()
+	public static String playGame(Bot bot)
 	{
 		
 		//Player 1's turn.
 		System.out.println("Player 1's turn.");
 		//Player 1's pieces are represented by the char 'X', which is why 'X' is passed into the turn method, which will give Player 1 their turn.
 		turn('X');
-		
-		//After the turn has concluded, the board is printed, showing where the piece is placed.
-		printBoard();
-		
-		//Skips a line for console readability.
-		System.out.println();
 		
 		//Detects if the game was won by Player 1, in which case "Player 1" is returned and the method breaks.
 		if (gameWon('X'))
@@ -86,17 +125,17 @@ public class ConnectFour
 		//Player 2's turn.
 		System.out.println("Player 2's turn.");
 		//Player 2's pieces are represented by the char 'X', which is why 'X' is passed into the turn method, which will give Player 1 their turn.
-		turn('O');
-		
-		//After the turn has concluded, the board is printed, showing where the piece is placed.
-		printBoard();
-		
-		//Skips a line for console readability.
-		System.out.println();
-		
+		if (bot == null)
+			turn('O');
+		else
+			place(bot.act(), 'O');
+			
 		//Detects if the game was won by Player 2, in which case "Player 2" is returned and the method breaks.
 		if (gameWon('O'))
-			return "Player 2";
+			if (bot == null)
+				return "Player 2";
+			else
+				return "Bot";
 		
 		//Detects if a tie has occurred, and if so, returns "tie". Detection works by keeping track of how many turns have passed. 
 		//When it hits 42 (the amount of squares on the board), the board has been filled without a connect 4, and thus the game is a tie.
@@ -105,7 +144,7 @@ public class ConnectFour
 			return "tie";
 		
 		//If nothing has been returned, calls itself again until something does get returned.
-		return playGame();
+		return playGame(bot);
 		
 	}
 	
@@ -133,7 +172,7 @@ public class ConnectFour
 		while (!placed)
 		{
 			
-			placed = place(validInput(myReader.nextLine().toLowerCase()), piece);
+			placed = place(validInput(myReader.nextLine().toLowerCase()) - 1, piece);
 			
 		}
 		
@@ -156,7 +195,15 @@ public class ConnectFour
 			if (board[row][column] == ' ') 
 			{
 				
-				board[row][column] = piece;
+				//Sets the row-column pair to the piece. Increments column in advance for the following print statement.
+				board[row][column++] = piece;
+				
+				//Print board after placement
+				printBoard();
+				
+				//Prints out the last move for quality of life.
+				System.out.println("\nLast move: " + column);
+				
 				//Increments the turn count.
 				turnCount++;
 				//Returns true, meaning the piece was placed, and ends the method.
@@ -305,8 +352,8 @@ public class ConnectFour
 			}
 			
 		}
-		//Detects if there is four in a row going northest. Does not run if starting after column 3 or above row 3 to prevent IndexOutOfBoundsException.
-		else if (column <= 3 && row >= 3 && board[row - 1][column + 1] == piece)
+		//Detects if there is four in a row going northeast. Does not run if starting after column 3 or above row 3 to prevent IndexOutOfBoundsException.
+		if (column <= 3 && row >= 3 && board[row - 1][column + 1] == piece)
 		{
 			
 			if (board[row - 2][column + 2] == piece)
@@ -323,7 +370,7 @@ public class ConnectFour
 			
 		}
 		//Detects if there is four in a row going straight up. Does not run if starting above row 3 to prevent IndexOutOfBoundsException.
-		else if (row >= 3 && board[row - 1][column] == piece)
+		if (row >= 3 && board[row - 1][column] == piece)
 		{
 			
 			if (board[row - 2][column] == piece)
@@ -352,6 +399,10 @@ public class ConnectFour
 	 */
 	public static boolean isInt(String string)
 	{
+		
+		//Empty string check.
+		if (string.length() == 0)
+			return false;
 		
 		//Loops through each character of the string.
 		for (int i = 0; i < string.length(); i++)
@@ -408,6 +459,9 @@ public class ConnectFour
 			
 		}
 		
+		//Labels the columns.
+		System.out.println(" 1 2 3 4 5 6 7");
+		
 	}
-																																																						                                                                                                                                                                                                                                                              //If you see this message, type, "I found you. :)" in the reply.
+																																																						//If you see this message, type, "I found you. :)" in the reply.
 }
