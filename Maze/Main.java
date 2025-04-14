@@ -314,7 +314,7 @@ public class Main
 			pathFound = pathfind(row - 1, column, traveled);
 		
 		//Checks if the coordinate to the left of the passed one is open or not, and path finds from that coordinate if so. Skips if a path was already found or the coordinate was already traveled.
-		if (column  < 0 && !maze[row][column - 1].isWall() && !pathFound && !coordinateTraveled(row, column - 1, traveled))
+		if (column > 0 && !maze[row][column - 1].isWall() && !pathFound && !coordinateTraveled(row, column - 1, traveled))
 			pathFound = pathfind(row, column - 1, traveled);
 		
 		//Returns if a path was found.
