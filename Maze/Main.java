@@ -84,6 +84,9 @@ public class Main
 	
 	/**
 	 * Personally I feel that this method should be in the player class, and be called from main. But, since the instructions say to do it in main, I'll follow them.
+	 * Moves the player based off of what was passed. 
+	 * @param direction - The direction that the player will be moved in.
+	 * @param player - The player that will be moved.
 	 */
 	public static void move(String direction, Player player)
 	{
