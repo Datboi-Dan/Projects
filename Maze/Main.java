@@ -259,7 +259,7 @@ public class Main
 		//Sets random tiles to non walls.
 		for (GameTile[] row : maze)
 			for (GameTile tile : row)
-				if (Math.random() >= 0.66)
+				if (Math.random() >= 0.75)
 					tile.setWall(false);
 		
 		//Keeps generating random mazes until the pathfind method can find a path. 
