@@ -15,7 +15,7 @@ public class Dungeon
 	
  	//These are all the paths to the left of the dungeon from the entrance.
 	private static Location leftPath = new Location("Left Path");
-	private static Location atheneum = new Location("Dungeon Atheneum");
+	private static Location athenaeum = new Location("Dungeon Athenaeum");
 	static Location laboratory = new Location("Laboratory");
 	
 	
@@ -24,7 +24,7 @@ public class Dungeon
 	private static Location alpha = new Location("Hallway Alpha");
 	private static Location omega = new Location("Hallway Omega");
 	private static Location rotunda = new Location("Dungeon Rotunda");
-	
+		
 	
 	//These are the paths to the right of the dungeon from the entrance.
 	private static Location rightPath = new Location("Right Path");
@@ -55,18 +55,18 @@ public class Dungeon
 		//Sets the path right from the entrance to the right path.
 		entrance.setRight(rightPath);
 		
-		//Sets the path forward from the left path to the atheneum.
-		leftPath.setForward(atheneum);
+		//Sets the path forward from the left path to the athenaeum.
+		leftPath.setForward(athenaeum);
 		//Sets the path backward from the left path to the entrance.
 		leftPath.setBack(entrance);
 		
-		//Sets the path forward from the atheneum to the laboratory.
-		atheneum.setForward(laboratory);
-		//Sets the path backward from the atheneum to the left path.
-		atheneum.setBack(leftPath);
+		//Sets the path forward from the athenaeum to the laboratory.
+		athenaeum.setForward(laboratory);
+		//Sets the path backward from the athenaeum to the left path.
+		athenaeum.setBack(leftPath);
 		
-		//Sets the path backward from the laboratory to the atheneum.
-		laboratory.setBack(atheneum);
+		//Sets the path backward from the laboratory to the athenaeum.
+		laboratory.setBack(athenaeum);
 		
 		//Sets the path to the left of the the center path to hallway alpha.
 		centerPath.setLeft(alpha);
