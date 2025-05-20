@@ -3,7 +3,7 @@ import java.util.Scanner;
 
 
 /**
- * Start date for coding: October 13.
+ * Start date for coding: October 13, 2024.
  */
 public class Game 
 {
